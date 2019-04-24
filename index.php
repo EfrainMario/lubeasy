@@ -257,72 +257,7 @@
     
     
     
-    
-    <!------------------- Firebase App is always required and must be first ---------------------->
-    <!--<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-messaging.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
-    <script>
-        $('.modal').modal();
 
-        $('.fixed-action-btn').floatingActionButton({ hoverEnabled: false});
-
-
-
-
-
-
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyDItHexxmG-1NjPPq_v8eWqK-i8bZWZybI",
-            authDomain: "vectisfood-2b3f6.firebaseapp.com",
-            databaseURL: "https://vectisfood-2b3f6.firebaseio.com",
-            projectId: "vectisfood-2b3f6",
-            storageBucket: "vectisfood-2b3f6.appspot.com",
-            messagingSenderId: "619499966458"
-            };
-        firebase.initializeApp(config);
-
-        const messaging = firebase.messaging();
-
-        messaging.usePublicVapidKey("BAVw2gGjtVwbBy41MF-vMXXqQRQQhoUB0aEI05_8eteJhtBIJ_WehN43tenUl8L-koSX7ThpERt3V8TqSUsekvI");
-
-
-        messaging.requestPermission().then(function() {
-            console.log('Notification permission granted.');
-            getToken();
-        }).catch(function(err) {
-            console.log('Unable to get permission to notify.', err);
-        });
-
-
-        function getToken(){
-            messaging.getToken().then(function(currentToken) {
-                if (currentToken) {
-                    console.log('token: ', currentToken);
-                } else {
-                    console.log('No Instance ID token available. Request permission to generate one.');
-                }
-            }).catch(function(err) {
-                console.log('An error occurred while retrieving token. ', err);
-            });
-        }
-
-
-        messaging.onTokenRefresh(function() {
-            getToken();
-        });
-
-
-
-        messaging.onMessage(function(payload) {
-
-            $('.modal h4').html(payload.notification.title);
-            $('.modal p').html(payload.notification.body);
-            $('#addProduto').modal('open');
-            console.log('Message received. ', payload);
-        });
-    </script>-->
   </body>
 </html>   
     
