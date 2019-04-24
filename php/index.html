@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <title>Lubisse</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="./../css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="./../css/styles.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body class="blue-grey lighten-5">
+
+<div id="tudo">
+    <header>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper white black-text z-depth-3">
+                    <div class="row" style="width: 110%;">
+                        <div class="col s1">
+                            <ul id="nav-hamburger" class="left-align">
+                                <li> <a href="#" data-target="slide-out" class="sidenav-trigger show-on-medium-and-up"><i class="material-icons black-text">menu</i></a></li>
+                            </ul>
+                        </div>
+                        <div class="col s4 left">
+                            <a href="#!" class="brand-logo left-align"><img src="../img/logo.png" height="40" width="40" class="responsive-img"/></a>
+                            <!--<a href="#!" class="brand-logo blue-grey-text left-align">Lub<span class="orange-text">easy</span></a>-->
+                        </div>
+                        <div class="col s3 offset-s4 right">
+                            <!-- Switch -->
+                            <div class="switch">
+                                <span class="hide-on-small-and-down">Online</span>
+
+                                <div id="onlineProgressBar" class="preloader-wrapper small valign-wrapper active">
+                                    <div class="spinner-layer spinner-green-only">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <label id="onlineCkb" class="hide">
+                                    <input name="ckbOnline" type="checkbox">
+                                    <span class="lever"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="red hide barraVermelha" style="height: 3px;"></div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+
+        <!-- SideNav -->
+        <ul id="slide-out" class="sidenav">
+            <li><div class="user-view">
+                <div class="background">
+                    <img src="./../img/img.jpg">
+                </div>
+
+                <a href=""><img src="" width="50" height="50" class="circle"></a>
+                <a href=""><span class="white-text name">Pizzaria Hudson</span></a>
+                <a href=""><span class="white-text email">pizariahudson@gmail.com</span></a>
+            </div></li>
+            <li><a class="waves-effect" href="#main"><i class="material-icons">cloud</i>Pagina Principal</a></li>
+            <li><a class="waves-effect" href="#pedidos"><i class="material-icons">person_pin</i>Pedidos</a></li>
+            <li><a class="waves-effect" href="#produto"><i class="material-icons">fastfood</i>Produtos</a></li>
+            <li><a class="waves-effect" href="#promocao"><i class="material-icons">flag</i>Promoção</a></li>
+            <!--<li><a class="waves-effect" href="#!"><i class="material-icons">trending_up</i>Estatisticas</a></li>-->
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Gerais</a></li>
+            <li><a class="waves-effect" href="#definicoes"><i class="material-icons">settings</i>Definições</a></li>
+            <li><a class="waves-effect modal-trigger" href="#modalSair"><i class="material-icons">clear</i>Sair</a></li>
+        </ul>
+        <!-- SideNav-->
+    </header>
+
+<br>
+
+
+    <main id="principal">
+
+    </main>
+    <div class="col s12 center">
+        <div id="IndexProgressBar" class="preloader-wrapper active small">
+            <div class="spinner-layer spinner-red-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modalSair" class="modal">
+        <div class="modal-content">
+            <h4>Solicitação para sair</h4>
+            <p>Tens a certeza que pretendes sair? Os usu]arios não vão poder ver o teu estado de actividade</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat orange-text">não</a>
+            <a href="#!" id="btnSair" class="modal-close waves-effect waves-green btn-flat">sim</a>
+        </div>
+    </div>
+    <!-- Modal Structure -->
+
+
+
+
+    <!-- Modal Structure -->
+    <div id="modalCredenciaisDeAcesso" class="modal">
+        <div class="modal-content">
+            <h4 align="center">Credenciais de acesso</h4>
+            <div class="row">
+                <div class="col s12">
+                    <p>Para proceder, deve inserir a sua senha</p>
+                    <form name="frmInserirSenha">
+                        <div class="input-field col s12">
+                            <input  id="senhaInserida" name="senhaInserida" type="password" class="validate">
+                            <label for="senhaInserida">Senha</label>
+                        </div>
+                        <button type="submit" class="waves-effect waves-orange  btn-flat right">Enviar</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Structure -->
+
+    <footer class="page-footer orange lighten-1">
+        <div class="container" style="width: 90%;">
+            <div class="row">
+                <div class="col l4 s12">
+                    <h5 class="white-text">Outros Servicos</h5>
+                    <p class="grey-text text-lighten-4">Os nossos serviços ajudam a tornar a sua vida mais fácil.
+                        Receba pagamentos por encomendas feitas por si, venda os seus produtosa ao maior número de pessoas possível e compre os produtos no melhor preço.
+                    </p>
+                </div>
+                <div class="col l4 s12">
+                    <h5 class="white-text">Serviços Vectis Fast Food:</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#">Loja</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#">Cliente</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#">Delivery</a></li>
+                    </ul>
+                </div>
+                <div class="col l4 s12">
+                    <h5 class="white-text"></h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#">FAQs</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#">Ajuda</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#">Mensagem</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright orange darken-1">
+            <div class="container">
+                © 2019 Vectis Fast Food Loja todos os direitos reservados
+                <a class="grey-text text-lighten-4 right" href="#">Ir para o centro de ajuda</a>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<script src="./../js/Libs/js/jquery-3.3.1.min.js"></script>
+<script src="./../js/Libs/js/materialize.min.js"></script>
+<script src="./../js/Libs/js/Chart.min.js"></script>
+
+
+
+<!--<script type="module" src="js/login.js"></script>-->
+<!------------------- Firebase App is always required and must be first ---------------------->
+
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+
+
+
+<script type="module" src="./../js/lojaExec.js"></script>
+
+
+
+</body>
+</html>
