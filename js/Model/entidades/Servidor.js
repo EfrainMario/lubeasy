@@ -8,7 +8,7 @@ class Servidor{
         return $.ajax(
             {
                 crossDomain: true,
-                //headers: {  'Access-Control-Allow-Origin': '*' },
+                headers: {  'Access-Control-Allow-Origin': '*' },
                 xhrFields :  {
                     withCredentials :  true
                 },
