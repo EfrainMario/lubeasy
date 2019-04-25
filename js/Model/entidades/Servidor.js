@@ -8,10 +8,10 @@ class Servidor{
         return $.ajax(
             {
                 crossDomain: true,
-                headers: {  'Access-Control-Allow-Origin': '*' },
-                /*xhrFields :  {
+                //headers: {  'Access-Control-Allow-Origin': '*' },
+                xhrFields :  {
                     withCredentials :  true
-                },*/
+                },
                 method: metodo,
                 url:this.host+router,
                 data: dados,
