@@ -1,5 +1,5 @@
 import {Servidor} from "./../Model/entidades/Servidor.js";
-import {jsonReplacer, validarTipoDeImagem} from "./GeralHelper.js";
+import {jsonReplacer, validarTipoDeImagem,PHPdateTime} from "./GeralHelper.js";
 
 class PromocaoController{
     constructor(){
@@ -123,7 +123,7 @@ class PromocaoController{
                                     <div class="card-reveal">
                                         <span class="card-title grey-text text-darken-4">${promocao.nome}<i class="material-icons right">keyboard_arrow_down</i></span>
                                         <p>Descrição:<span class="descricao">${promocao.descricao}</span></p>
-                                        <p>Data de Término: <span class="dataTermino">${promocao.dataTermino}</span></p>
+                                        <p>Data de Término: <span class="dataTermino">${PHPdateTime('Y-m-d h:i:s',promocao.dataTermino)}</span></p>
                                         <p>Tempo de preparo: <span class="tempoDePreparo">${promocao.tempoDePreparo}</span></p>
                                         <p>Preço: <span class="preco">${promocao.preco}</span> kz</p>
                                     </div>
@@ -152,7 +152,8 @@ class PromocaoController{
             $('textarea[name=descricaoP]').val($card.find('span.descricao').html());
             $('img[name=imagemP]').attr('src', $card.find('img.activator').attr('src'));
             $('input[name=tempoDePreparoP]').val($card.find('span.tempoDePreparo').html());
-            $('input[name=dataTerminoP]').val($card.find('span.dataTermino').html());
+            $('input[name=dataTerminoP]').val(PHPdateTime( 'Y-m-d', $card.find('span.dataTermino').html()));
+            $('input[name=horaTerminoP]').val(PHPdateTime( 'h:i:s', $card.find('span.dataTermino').html()));
             $('input[name=precoP]').val(parseInt($card.find('span.preco').html()));
 
             $('select').formSelect();
@@ -167,7 +168,7 @@ class PromocaoController{
                     nome: $('input[name=nomeP]').val(),
                     descricao: $('textarea[name=descricaoP]').val(),
                     tempoDePreparo: $('input[name=tempoDePreparoP]').val(),
-                    dataTermino: $('input[name=dataTerminoP]').val(),
+                    dataTermino: $('input[name=dataTerminoP]').val()+' '+ $('input[name=horaTerminoP]').val(),
                     //imagem: $('input[name=imagemP]').val(),
                     preco: $('input[name=precoP]').val(),
                 });

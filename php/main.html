@@ -13,7 +13,11 @@
                         <b id="txtLocalDeReferencia" class="black-text medium">xxx</b>
                     </div>
                     <div class="col s3">
-                        <i class="material-icons small yellow-text">grade <span>4,5</span></i>
+                        <div class="grey lighten-5" style="box-sizing: border-box; height: inherit; width: 100%; border-radius: 5px;">
+                            <i class="material-icons small yellow-text" style="position: relative; top: 25%; right: 25%;">grade</i>
+                            <span class="purple-text darken-4" id="txtAvaliacaoMedia" style="position: relative; top: 25%; right: 25%; font-size: xx-large">4,5</span>
+                            <span class="grey-text darken-4 hide-on-small-and-down" style="position: relative; left: 25%;">Média geral</span>
+                        </div>
 
                     </div>
                 </div>
@@ -26,69 +30,49 @@
                     </div>
                 </div>
             </div>
-            <div class="card-panel">
-            <div class="row">
 
-                    <div class="col s6">
-                        <b>Horário</b>
-                        <p id="txtHorario" class="blue-grey-text medium"></p>
-                        <label>
-                            <input id="txtTypeService" type="checkbox" disabled="disabled">
-                            <span><b>Serviço de Entrega</b></span>
-                        </label>
-                    </div>
-                    <div class="col s6">
-                        <b>Taxa de Entrega</b>
-                        <p id="txtTaxaDeEntrega" class="blue-grey-text medium"></p>
-                        <b>Pagamentos</b><br>
-                        <label>
-                            <input id="txtPayOnline" type="checkbox" disabled="disabled">
-                            <span>online</span>
-                        </label>
-                        <br>
-                        <label>
-                            <input type="checkbox" id="txtPayMoney" disabled="disabled">
-                            <span>à dinheiro</span>
-                        </label>
-                        <br>
-                        <label>
-                            <input id="txtPayTPA" type="checkbox" disabled="disabled">
-                            <span>à máquina</span>
-                        </label>
+                <div class="row">
+
+                        <div class="col s12 m6">
+                            <div class="card-panel">
+                                <b>Telefone</b>
+                                <p id="txtTelefone" class="blue-grey-text medium"></p>
+                                <b>Horário</b>
+                                <p id="txtHorario" class="blue-grey-text medium"></p>
+                                <label>
+                                    <input id="txtTypeService" type="checkbox" disabled="disabled">
+                                    <span><b>Serviço de Entrega</b></span>
+                                </label>
+                        </div>
                     </div>
 
-                </div>
+                        <div class="col s12 m6">
+                            <div class="card-panel">
+                            <b>Taxa de Entrega</b>
+                            <p id="txtTaxaDeEntrega" class="blue-grey-text medium"></p>
+                            <b>Pagamentos</b><br>
+                            <label>
+                                <input id="txtPayOnline" type="checkbox" disabled="disabled">
+                                <span>online</span>
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" id="txtPayMoney" disabled="disabled">
+                                <span>à dinheiro</span>
+                            </label>
+                            <br>
+                            <label>
+                                <input id="txtPayTPA" type="checkbox" disabled="disabled">
+                                <span>à máquina</span>
+                            </label>
+                        </div>
+
+                    </div>
             </div>
 
 
                 <div class="row">
-                    <div class=" col s12 m5 card-panel">
-                        <h5>Comentários</h5>
-                        <div>
-                            <div class="col s8">
-                                <span class="">Jackson James</span>
-                            </div>
-                            <div class="col s4">
-                                <i class="material-icons yellow-text darken-4">x x x x</i><!--grade grade grade grade grade</i>-->
-                            </div>
-                            <p class="blue-grey-text">Rápida nas entregas e qualidade nos produtos</p>
-                            <div class="divider"></div>
-                        </div>
-                        <div>
-                            <div class="col s8">
-                                <span class="">Henry Ford</span>
-                            </div>
-                            <div class="col s4">
-                                <i class="material-icons yellow-text darken-4">x x x x</i><!--grade grade grade grade grade</i>-->
-                            </div>
-                            <p class="blue-grey-text">Inovadora! Até parece o meu motor à combustão. Serviços rápidos e excelentes</p>
-                            <div class="divider"></div>
-                        </div>
-                            <a class="btn btn-flat orange-text center" href="#!">ver mais</a>
-
-                    </div>
-
-                    <div class="col s12 offset-m1 m6 card-panel">
+                    <div class="col s12 card-panel">
                         <h5>Evolução das vendas</h5>
                         <br>
                         <div class="col s12">

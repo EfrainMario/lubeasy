@@ -1,69 +1,8 @@
-//Model
-
-class Loja{
-    constructor(){
-        this.id;
-        this.nome;
-        this.provicia;
-        this.municipio;
-        this.telefone;
-        this.senha;
-        this.logotipo;
-        this.entrada;
-        this.saida;
-        this.criacao;
-        this.email;
-        this.NIF;
-        this.emailDono;
-        this.telefoneDono;
-        this.BIDono;
-        this.fcmToken;
-        this.kambaIdReceiver;
-        this.latitude;
-        this.longitude;
-        this.endereco;
-        this.categoria;
-        this.bloqueada;
-        this.online;
-        this.dataDeCriacao;
-    }
-
-
-}
-class Servidor{
-    constructor(){
-        this.host='http://localhost/www/vectis/api/v1';
-    }
-    requisitar(metodo, router, dados, loading, success, failure, sempre){
-        $.ajax(
-            {
-                method: metodo,
-                url:this.host+router,
-                data: dados,
-                beforeSend: loading(),
-                statusCode: {
-                    200:function (data, textStatus, xhr){
-                        success(data, textStatus, xhr);
-                    },
-                    201:function (data, textStatus, xhr){
-                        success(data, textStatus, xhr);
-                    }
-
-                }
-            })
-            .fail(function() {
-                failure();
-            })
-            .always(function() {
-                sempre();
-            });
-    }
-}
+import {Servidor} from "./Model/entidades/Servidor.js";
 
 //Controller
 class LojaController{
     constructor(){
-        this.loja = new Loja();
         this.servidor = new Servidor();
     }
 
@@ -187,12 +126,11 @@ $('form[name=formLogin]').submit(function(e){
     let $btnLogin = $('button#btnLogin');
     $btnLogin.disabled = true;
     //Todo Verificacao
-    $(this).each(function (i, e) {
-        if(e.value == null){
-            console.log("nenhum dos campos pode ser vasio");
-        }
-    });
-    lojaController.login($(this).serialize());
+    if(($(this).find('input[name=email]').val() === '') || ($(this).find('input[name=senha]').val())=== ''){
+        M.toast({html: 'Nenhum dos campos pode ser vasio', classes: 'rounded'});
+    }else{
+        lojaController.login($(this).serialize());
+    }
 
     $btnLogin.disabled = false;
 });

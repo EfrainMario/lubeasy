@@ -34,6 +34,17 @@ class LojaController{
 
         });
     }
+    obterAvaliacaoMediaLoja(loja){
+        return this.servidor.requisitar('GET','/lojas/'+loja.id+'/avaliacoes', null, function () {
+
+        }, function () {
+
+        }, function () {
+
+        }, function () {
+
+        });
+    }
     criarLoja(loja){
         let dados = JSON.stringify(loja, jsonReplacer);
         this.servidor.requisitar('POST','/lojas', dados, function () {

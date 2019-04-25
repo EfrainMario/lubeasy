@@ -24,28 +24,34 @@ if (loja==null){
 loja = JSON.parse(loja);
 
 function modalInserirSenhaParaPaginas(pagina, depoisExecutarFuncao) {
+    let executarFuncao = depoisExecutarFuncao;
     let $modal = $('div#modalCredenciaisDeAcesso.modal');
+    let Mmodal = M.Modal.init($modal,{onClose: function(){
+            console.log('Ops');
+            $modal.find('input[name=senhaInserida]').val('');
+            executarFuncao = function () {};
+        }});
     if((pagina === 'promocao') || (pagina === 'produto' || pagina === 'exibir')) {
-        $modal.modal({onCloseEnd: function(){
-                $modal.find('input[name=senhaInserida]').val('');
-                depoisExecutarFuncao = function () {};
-            }
-        });
-        $modal.modal('open');
+
+        Mmodal[0].open();
         $('form[name=frmInserirSenha]').submit(function (e) {
             e.preventDefault();
+            $(e.target).addClass('disabled');
             if (loja.senha === $(this).find('input[name=senhaInserida]').val()) {
-                console.log('senha: ', loja.senha);
-                $(this).parents('div#modalCredenciaisDeAcesso.modal').modal('close');
+                Mmodal[0].close();
                 $modal.find('input[name=senhaInserida]').val('');
-                depoisExecutarFuncao();
+                executarFuncao();
+                executarFuncao = function () {};
             } else {
                 M.toast({html: 'Senha Errada.', classes: 'rounded'});
             }
-
+            $('form[name=frmInserirSenha]').unbind('submit');
+            $(e.target).removeClass('disabled');
         });
-    }else{
-        depoisExecutarFuncao();
+
+        }else{
+        executarFuncao();
+        executarFuncao = function () {};
     }
 }
 
@@ -69,8 +75,71 @@ function ler(){
     else if($('div#promocaoPag').length !== 0){
         PaginaPromocao();
         retirarRodape();
-        console.log('promocao');
-    }
+        //Init
+        let datePicker = M.Datepicker.init($('input.datepicker'), {
+            format: 'yyyy-mm-dd',
+            i18n: {
+                cancel: 'cancelar',
+                clear: 'limpar',
+                done: 'ok',
+                months:[
+                        'Janeiro',
+                        'Fevereiro',
+                        'Mar;o',
+                        'Abril',
+                        'Maio',
+                        'Junho',
+                        'Julho',
+                        'Agosto',
+                        'Setembro',
+                        'Outubro',
+                        'Novembro',
+                        'Decembro'
+                    ],
+                monthsShort:[
+                            'Jan',
+                            'Fev',
+                            'Mar',
+                            'Abr',
+                            'Mai',
+                            'Jun',
+                            'Jul',
+                            'Ago',
+                            'Set',
+                            'Out',
+                            'Nov',
+                            'Dec'
+                        ],
+                weekdays:[
+                    'Domingo',
+                    'Segunda-feira',
+                    'Terça-feira',
+                    'Quarta-feira',
+                    'Quinta-feira',
+                    'Sexta-feira',
+                    'Sábado'
+                ],
+                weekdaysShort:[
+                    'Dom',
+                    'Seg',
+                    'Ter',
+                    'Qua',
+                    'Qui',
+                    'Sex',
+                    'Sab'
+                ],
+                weekdaysAbbrev:['D','S','T','Q','Q','S','S']
+            }
+        });
+        let timePicker = M.Timepicker.init($('input.timepicker'), {
+            twelveHour: false,
+            i18n:{
+                cancel:'cancelar',
+                clear: 'limpar',
+                done: 'ok'
+            }
+        });
+        }
     // ------------------------ definicoes.html ----------------------------------- ///
     else if($('div#definicoesPag').length !== 0){
         PaginaDefinicoes();
@@ -98,6 +167,7 @@ $(document).ready(function(){
         $('div#IndexProgressBar').removeClass('active');
         PaginaMain();
     });
+    M.AutoInit();
 
     initSideNavAndNavbar();
 });
@@ -135,10 +205,9 @@ $('header .sidenav li a').bind('click', function (e) {
         modalInserirSenhaParaPaginas(pagina,
             function () {
                 $('main').load(pagina + '.html', function () {
-                    (ler());
+                    ler();
                     $('title').html(pagina.toUpperCase());
-                    $('.modal').modal();
-
+                    $('.modal:not(div#modalCredenciaisDeAcesso.modal)').modal();
                     $('.fixed-action-btn').floatingActionButton({hoverEnabled: false});
                 });
             });
@@ -179,6 +248,7 @@ function PaginaMain() {
     $('#mainPag b#txtLocalDeReferencia').html(loja.localDeReferencia);
     $('#mainPag p#txtObjectivo').html(loja.objectivo);
     $('#mainPag p#txtHorario').html(loja.horario);
+    $('#mainPag p#txtTelefone').html(loja.telefone);
     $('#mainPag p#txtTaxaDeEntrega').html(loja.taxaDeEntrega);
 
 
@@ -186,25 +256,34 @@ function PaginaMain() {
     $('#mainPag input#txtPayOnline').prop('checked',Boolean(Number(loja.payOnline)));
     $('#mainPag input#txtPayTPA').prop('checked',Boolean(Number(loja.payTPA)));
 
-    $('#mainPag input#txtTypeService').prop('checked',Boolean(Number(loja.payTPA)));
-
-
+    $('#mainPag input#txtTypeService').prop('checked',Boolean(Number(loja.typeService)));
+    //Avaliacoes
+    lojaController.obterAvaliacaoMediaLoja(loja).done(function (data, textStaus, xhr) {
+        if(xhr.status === 200){
+            $('#mainPag span#txtAvaliacaoMedia').html(data);
+        }else{
+            $('#mainPag span#txtAvaliacaoMedia').parents('div.grey').addClass('hide');
+        }
+    });
 
     //---------------  Chart.js -----------------//
     let $context = $('#mainPag canvas#graphEstatisticas');
+
+
+
     let grafico = new Chart($context,
         {// The type of chart we want to create
-            type: 'line',
+            type: 'bar',
 
             // The data for our dataset
             data:{
                     labels: ["January", "February", "March", "April", "May", "June", "July"],
                     datasets: [{
-                    label: " ",
-                    backgroundColor: 'rgba(251, 160, 0, 0.8)',
-                    borderColor: 'rgba(251, 160, 0, 0.8)',
-                    data: [0, 10, 5, 2, 20, 30, 45],
-                }]
+                        label: " ",
+                        backgroundColor: 'rgba(251, 160, 0, 0.8)',
+                        borderColor: 'rgba(251, 160, 0, 0.8)',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                    }]
             },
 
         // Configuration options go here
@@ -268,6 +347,7 @@ function PaginaPromocao() {
         e.preventDefault();
         $(e.target).addClass('disabled');
 
+
         let img = $(this).find('input[name=imagem]')[0].files[0];
 
         if(validarTipoDeImagem(img)){
@@ -280,7 +360,8 @@ function PaginaPromocao() {
                 descricao: $('textarea[name=descricao]').val(),
                 tempoDePreparo: $('input[name=tempoDePreparo]').val(),
                 preco: $('input[name=preco]').val(),
-                dataTermino: $('input[name=dataTermino]').val()
+                dataTermino: $('input[name=dataTermino]').val()+' '+$('input[name=horaTermino]').val()
+
             }, jsonReplacer));
 
             promocaoController.criarPromocao(loja,formData);
@@ -296,10 +377,6 @@ function PaginaPromocao() {
 
 // ------------------------- Definicoes.html ----------------------------- //
 function PaginaDefinicoes() {
-    let senhaAlterada = 0;
-    let lojaEditada = 0;
-    let LogoAlterado = 0;
-
 
     $('div#modalCredenciaisDeAcesso.modal').modal({onCloseStart: function(){
         console.log('adh');
@@ -443,8 +520,9 @@ function PaginaDefinicoes() {
                     .done(function () {
                         M.toast({html: 'Logotipo guardado. Aguarde um pouco. Estamos a configurar', classes: 'rounded'});
                         lojaController.obterLojaPeloId(loja).done(function (data, statusText, xhr) {
-                            sessionStorage['dadosLoka']= xhr.responseText;
+                            sessionStorage['dadosLoja']= xhr.responseText;
                             loja=data;
+                            initSideNavAndNavbar();
                             M.toast({html: 'Está configurado', classes: 'rounded'});
                         });
                     });
@@ -471,9 +549,6 @@ function PaginaPedidos() {
     });
     $(' a.btn-openSidenav').click(function (e) {
        // $('ul.sidenav2').sidenav()[0].M_Sidenav.isOpen = true;
-
-
-
         //console.log('Iniciou> ', $('ul.sidenav2').sidenav('isOpen'));
 
     });
@@ -486,6 +561,7 @@ function PaginaPedidos() {
         pedidosController.actualizarPedido(loja,{id: id, isAccept:2})
             .done(function () {
                 pedidosController.obterPedidosDaLoja(loja);
+
             });
     });
 

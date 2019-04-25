@@ -56,15 +56,27 @@ function formaDePagamento(forma) {
         default: return forma;
     }
 }
-function PHPdateTime(text) {
-    for (var i = 0; i<=text.length; i++){
-        if(text.charAt(i)==='d') text = text.replace(/d/gi, Number(new Date().getDate())<10?'0'+(new Date().getDate()):new Date().getDate());
-        if(text.charAt(i)==='m') text = text.replace(/m/gi, Number(new Date().getMonth()+1)<10?'0'+(new Date().getMonth()+1):new Date().getMonth()+1);
-        if(text.charAt(i)==='Y') text = text.replace(/Y/gi, new Date().getFullYear());
-        if(text.charAt(i)==='i') text = text.replace(/i/gi, new Date().getMinutes());
-        if(text.charAt(i)==='h') text = text.replace(/h/gi, new Date().getHours());
-        if(text.charAt(i)==='s') text = text.replace(/s/gi, new Date().getSeconds());
+function PHPdateTime(DatePattern, dataHora = null) {
+    let dateTime;
+    console.log(dataHora);
+    if (dataHora !== null) {
+        if (typeof dataHora === "string") {
+            dateTime = new Date(dataHora);
+        } else{
+            dateTime = dataHora;
+        }
+    } else {
+        dateTime = new Date();
     }
-    return text;
+    console.log(dateTime);
+    for (var i = 0; i<=DatePattern.length; i++){
+        if(DatePattern.charAt(i)==='d') DatePattern = DatePattern.replace(/d/gi, Number(dateTime.getDate())<10?'0'+(dateTime.getDate()):dateTime.getDate());
+        if(DatePattern.charAt(i)==='m') DatePattern = DatePattern.replace(/m/gi, Number(dateTime.getMonth()+1)<10?'0'+(dateTime.getMonth()+1):dateTime.getMonth()+1);
+        if(DatePattern.charAt(i)==='Y') DatePattern = DatePattern.replace(/Y/gi, dateTime.getFullYear());
+        if(DatePattern.charAt(i)==='i') DatePattern = DatePattern.replace(/i/gi, Number(dateTime.getMinutes())<10?'0'+(dateTime.getMinutes()):dateTime.getMinutes());
+        if(DatePattern.charAt(i)==='h') DatePattern = DatePattern.replace(/h/gi, Number(dateTime.getHours())<10?'0'+(dateTime.getHours()):dateTime.getHours());
+        if(DatePattern.charAt(i)==='s') DatePattern = DatePattern.replace(/s/gi, Number(dateTime.getSeconds())<10?'0'+(dateTime.getSeconds()):dateTime.getSeconds());
+    }
+    return DatePattern;
 }
 export {validarTipoDeImagem, jsonReplacer, colocarRodape, retirarRodape, tratarCategoria, estadoPedidoToText, PHPdateTime}
