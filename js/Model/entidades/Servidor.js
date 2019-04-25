@@ -1,7 +1,7 @@
 class Servidor{
     constructor(){
         //this.host='http://localhost/www/vectis/api/loja/v1/';
-        this.host='https://apiloja.herokuapp.com/';
+        this.host='https://apiloja.herokuapp.com';
     }
     requisitar(metodo, router, dados, loading, success, failure, sempre, comImagem = false){
         console.log('comImagem: ', comImagem);
