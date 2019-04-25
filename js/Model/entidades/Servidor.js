@@ -9,10 +9,9 @@ class Servidor{
             {
                 crossDomain: true,
                 headers: {  'Access-Control-Allow-Origin': '*' },
-                xhrFields :  {
+                /*xhrFields :  {
                     withCredentials :  true
-
-                },
+                },*/
                 method: metodo,
                 url:this.host+router,
                 data: dados,
