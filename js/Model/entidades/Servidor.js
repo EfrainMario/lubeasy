@@ -8,6 +8,7 @@ class Servidor{
         return $.ajax(
             {
                 crossDomain: true,
+                headers: {  'Access-Control-Allow-Origin': 'https://apiloja.herokuapp.com/' },
                 method: metodo,
                 url:this.host+router,
                 data: dados,
