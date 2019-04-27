@@ -581,7 +581,6 @@ function PaginaPedidos() {
 
 // ------------------------- Firebase Cloud Messaging FCM --------------------------------- //
 
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBB1_kiiIbtMbR5s5CcsgYtGwk6JK0PwI4",
