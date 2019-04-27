@@ -118,7 +118,8 @@ $('form[name=formCriarConta]').submit(function (e){
     }
 
 });
-
+//$('form[name=formLogin]').find('input[name=email]').val('kero@gm.com');
+//$('form[name=formLogin]').find('input[name=senha]').val('12345');
 
 //// ------------------------ Login ---------------------------------------////
 $('form[name=formLogin]').submit(function(e){

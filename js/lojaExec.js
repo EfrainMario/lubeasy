@@ -378,11 +378,6 @@ function PaginaPromocao() {
 // ------------------------- Definicoes.html ----------------------------- //
 function PaginaDefinicoes() {
 
-    $('div#modalCredenciaisDeAcesso.modal').modal({onCloseStart: function(){
-        console.log('adh');
-            $('div#modalCredenciaisDeAcesso.modal').find('input[name=senhaInserida]').val('');
-        }});
-
     $(document).ready(function(){
 
         $('select').formSelect();
