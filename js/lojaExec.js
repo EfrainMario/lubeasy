@@ -645,7 +645,10 @@ messaging.onTokenRefresh(function() {
 });
 
 messaging.onMessage(function(payload) {
-    new Notification(payload.notification.title, payload.notification);
+    let notification = new Notification(payload.notification.title, {body:payload.notification.body,icon:payload.notification.icon});
+    notification.onclick = function (){
+        window.open(payload.notification.click_action);
+    };
     INTENT();
     console.log('Message received. ', payload);
 });
