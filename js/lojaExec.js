@@ -645,6 +645,9 @@ messaging.onTokenRefresh(function() {
 });
 
 messaging.onMessage(function(payload) {
-    pedidosController.obterPedidosDaLoja(loja);
+    var notification = new Notification("Hi there!");
+
+
+        INTENT();
     console.log('Message received. ', payload);
 });
