@@ -20,13 +20,13 @@ function INTENT(){
     //let params = document.location.search;
 
     let params = new URLSearchParams(document.location.search.substring(1));
-    let pagina = params.get("intent");
+    let pagina = params.get("action");
     if(!(pagina===null) || !(pagina === '')){
         modalInserirSenhaParaPaginas(pagina,
             function () {
                 $('main').load(pagina + '.html', function () {
                     ler();
-                    $('title').html(pagina.toUpperCase());
+                    //$('title').html(pagina.toUpperCase());
                     $('.modal:not(div#modalCredenciaisDeAcesso.modal)').modal();
                     $('.fixed-action-btn').floatingActionButton({hoverEnabled: false});
                 });
