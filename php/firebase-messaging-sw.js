@@ -29,7 +29,9 @@ messaging.setBackgroundMessageHandler(function(payload) {
         body: 'Background Message body.',
         icon: '/firebase-logo.png'
     };
-    //document.location.reload(true);
+    notificationOptions.click = function() {
+        window.open("http://stackoverflow.com");
+    };
 
     return self.registration.showNotification(notificationTitle,
         notificationOptions);
