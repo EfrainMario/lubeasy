@@ -189,8 +189,9 @@ $(document).ready(function(){
     M.AutoInit();
 
     initSideNavAndNavbar();
+    INTENT();
 });
-INTENT();
+
 function initSideNavAndNavbar() {
 //Definindo valores
     $('.sidenav a img.circle').attr('src', loja.logotipo);
