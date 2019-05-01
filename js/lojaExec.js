@@ -645,9 +645,7 @@ messaging.onTokenRefresh(function() {
 });
 
 messaging.onMessage(function(payload) {
-    var notification = new Notification("Hi there!");
-
-
-        INTENT();
+    new Notification(payload.notification.title, payload.notification);
+    INTENT();
     console.log('Message received. ', payload);
 });
