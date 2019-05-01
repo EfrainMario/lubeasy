@@ -14,7 +14,7 @@ let lojaController =new LojaController();
 
 /// ------------------------- Index.html -----------------------------------////
 // Controlo de sessao
-INTENT();
+
 function INTENT(){
     //let url = document.URL;
     //let params = document.location.search;
@@ -190,7 +190,7 @@ $(document).ready(function(){
 
     initSideNavAndNavbar();
 });
-
+INTENT();
 function initSideNavAndNavbar() {
 //Definindo valores
     $('.sidenav a img.circle').attr('src', loja.logotipo);
