@@ -30,7 +30,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
         icon: '/firebase-logo.png'
     };
     //document.location.reload(true);
-
+    console.log('Self:  ', self);
     return self.registration.showNotification(notificationTitle,
         notificationOptions);
 });
