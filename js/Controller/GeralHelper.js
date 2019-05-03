@@ -43,7 +43,7 @@ function estadoPedidoToText(estadoPedido){
         case '2': return {estado: "em preparo", corClasse: "orange"} ;
         case '3': return {estado: "em andamento", corClasse: "yellow darken-1"} ;
         case '4': return {estado: "entregue", corClasse: "green"} ;
-        default: return {estado: "", corClasse: "blue pulse circle"};
+        default: return {estado: "em espera", corClasse: "grey pulse circle"};
     }
 }
 function formaDePagamento(forma) {
