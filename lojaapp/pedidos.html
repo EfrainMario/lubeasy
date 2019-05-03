@@ -7,8 +7,18 @@
         background-color: white;
         margin-top: -20px;
     }
-
+    ul.sidenav2{
+        z-index: auto;
+        margin-top:-30px;
+        max-height: 105%;
+    }
     @media only screen and (max-width : 992px) {
+        ul.sidenav2{
+            z-index: 996;/*padrao-->999*/
+        }
+        .sidenav-overlay{
+            z-index: 995;/*padrao-->997*/
+        }
         header, main, footer {
             padding-left: 0;
         }
@@ -20,7 +30,7 @@
 
         <div class="row">
                 <div class="col s12">
-                    <a href="#" data-target="slide-out" class="btn-openSidenav show-on-small hide-on-med-and-up"><i class="material-icons">arrow_back</i></a>
+                    <a href="#" data-target="sideNavPedidos" class="btn-openSidenav sidenav-trigger show-on-medium-and-down hide-on-large-only"><i class="material-icons">arrow_back</i></a>
                     <h5>Detalhes</h5>
                 </div>
                 <div id="decisaoNovoPedido" class="col s12 card-panel hide">
@@ -32,20 +42,20 @@
                     </div>
                 </div>
                     <div class="col s12 m8">
-                        <p><b class="medium">Cliente: </b><span id="nomeCliente">Yagami Raito - Kira</span></p>
-                        <p>Endereço: <span id="endereco">Comandante cowboy rua 12</span></p>
-                        <p>Referência: <span id="referencia">Casa cor de laranja</span></p>
+                        <p><b class="medium">Cliente: </b><span id="nomeCliente">...</span></p>
+                        <p>Endereço: <span id="endereco">...</span></p>
+                        <p>Referência: <span id="referencia">...</span></p>
                     </div>
                     <div class="col s12 m4">
                         <span class="new badge green" id="isAccept" data-badge-caption="Entregue"></span>
-                        <span ><b class="medium">Código: </b><span id="codPedido">8209823</span></span>
-                        <p>Data: <span id="dataDeEmissao">19/12/2019</span> às <span id="receptLojaTiime">19:25</span></p>
+                        <span ><b class="medium">Código: </b><span id="codPedido">...</span></span>
+                        <p>Data: <span id="dataDeEmissao">...</span> às <span id="receptLojaTiime">...</span></p>
                     </div>
 
                 <br>
                 <br>
                 <div class="col s12">
-                    <p>Tempo de Entrega: <span id="tempoDeEntrega">19:50</span></p>
+                    <p>Tempo de Entrega: <span id="tempoDeEntrega">...</span></p>
 
                 </div>
                 <br>
@@ -72,8 +82,8 @@
                     <br>
                 </div>
                 <div class="col s7">
-                    <p>Forma de pagamento: <span id="formaDePagamento">Dinheiro</span></p>
-                    <p>Tipo de Entrega: <span id="isPay">Delivery</span></p>
+                    <p>Forma de pagamento: <span id="formaDePagamento">...</span></p>
+                    <p>Tipo de Entrega: <span id="isPay">...</span></p>
                 </div>
                 <div class="col s5 right-align">
                     <p>subTotal: <span class="orange-text" id="subTotal">0</span> Akz</p>
@@ -89,7 +99,7 @@
 
 
     </div>
-    <ul id="slide-out" class="sidenav2 sidenav sidenav-fixed z-depth-1-half " style="z-index: auto; margin-top:-30px; max-height: 105%;">
+    <ul id="sideNavPedidos" class="sidenav2 sidenav sidenav-fixed z-depth-1-half">
         <!--<li>
             <br>
             <br>

@@ -1,23 +1,20 @@
 import {ProdutoController} from "./Controller/ProdutoController.js";
-//import {Servidor} from "./Model/entidades/Servidor.js";
 import {PromocaoController} from "./Controller/PromocaoController.js";
 import {PedidosController} from "./Controller/PedidoController.js";
 import {LojaController} from "./Controller/LojaController.js";
 import {validarTipoDeImagem, jsonReplacer, retirarRodape, colocarRodape, PHPdateTime} from "./Controller/GeralHelper.js";
 
 
- 
+
 let produtoController = new ProdutoController();
 let promocaoController = new PromocaoController();
 let pedidosController = new PedidosController();
 let lojaController =new LojaController();
-
+window.name= "lubeasy";
 /// ------------------------- Index.html -----------------------------------////
 // Controlo de sessao
 
 function INTENT(){
-    //let url = document.URL;
-    //let params = document.location.search;
 
     let params = new URLSearchParams(document.location.search.substring(1));
     let pagina = params.get("action");
@@ -41,15 +38,18 @@ if (loja==null){
 }
 
 loja = JSON.parse(loja);
-
+var modalSenhaInicializada = 0;
 function modalInserirSenhaParaPaginas(pagina, depoisExecutarFuncao) {
     let executarFuncao = depoisExecutarFuncao;
     let $modal = $('div#modalCredenciaisDeAcesso.modal');
-    let Mmodal = M.Modal.init($modal,{onClose: function(){
-            console.log('Ops');
-            $modal.find('input[name=senhaInserida]').val('');
-            executarFuncao = function () {};
-        }});
+    let Mmodal;
+    if(!modalSenhaInicializada){
+        Mmodal = M.Modal.init($modal,{onClose: function(){
+                $modal.find('input[name=senhaInserida]').val('');
+                executarFuncao = function () {};
+            }});
+    }
+
     if((pagina === 'promocao') || (pagina === 'produto' || pagina === 'exibir')) {
 
         Mmodal[0].open();
@@ -180,7 +180,7 @@ function ler(){
 
 $(document).ready(function(){
     $('.sidenav').sidenav();
-    $('.modal').modal();
+    $('.modal').modal({dismissible:false});
 
     $('main#principal').load('main.html', function () {
         $('div#IndexProgressBar').removeClass('active');
@@ -240,8 +240,11 @@ $('header .sidenav li a').bind('click', function (e) {
 $('div#modalSair a#btnSair').click(function (e) {
     e.preventDefault();
     //Todo Desactivar o estado Online
-    sessionStorage.removeItem('dadosLoja');
-    location.replace('login.html');
+
+    lojaController.actualizarLoja({id:loja.id, fcmToken:null}).done(function () {
+        sessionStorage['dadosLoja']=null;
+        location.replace('login.html');
+    });
 });
 
 //--- Online/Offline --------//
@@ -250,8 +253,13 @@ $('header input[name=ckbOnline]').bind('click', function (e) {
 
     lojaController.actualizarLoja({ id: loja.id, online: Boolean(e.target.checked)})
         .done(function () {
-            M.toast({html: 'Alterado', classes: 'rounded'});
-            $('header div.barraVermelha').toggleClass('hide');
+            lojaController.obterLojaPeloId({id:loja.id}).done(function (dados, tS, xhr) {
+                sessionStorage['dadosLoja'] = xhr.responseText;
+                loja = dados;
+                M.toast({html: 'Alterado', classes: 'rounded'});
+                $('header div.barraVermelha').toggleClass('hide');
+            });
+
     })
         .fail(function (){
             $('header input[name=ckbOnline]').prop('checked', Boolean(Number(loja.online))) ;
@@ -322,12 +330,12 @@ function PaginaMain() {
 
 // ------------------------- Produto.html ------------------------------- //
 function PaginaProduto() {
-
     produtoController.obterProdutosDaLoja(loja);
 
     $('form[name=frmAdidionarProduto]').submit(function (e) {
         e.preventDefault();
         $(e.target).addClass('disabled');
+        $('div#pbAdicionarProduto').removeClass('hide');
         //Todo Verificacao dos campos
         let img = $(this).find('input[name=imagem]')[0].files[0];
 
@@ -345,7 +353,9 @@ function PaginaProduto() {
                 preco: $('input[name=preco]').val(),
             }, jsonReplacer));
 
-            produtoController.criarProduto(loja,formData);
+            produtoController.criarProduto(loja,formData).always(function () {
+                $('div#pbAdicionarProduto').addClass('hide');
+            });
             //TODO Upload de ficheiros com JQuery
 
         }else {
@@ -365,7 +375,8 @@ function PaginaPromocao() {
     promocaoController.obterTodasAsDaPromocoesLoja(loja);
     $('form[name=frmAdidionarPromocao]').submit(function (e) {
         e.preventDefault();
-        $(e.target).addClass('disabled');
+        $(this).find('button[type=submit]').addClass('disabled');
+        $('div#pbAdicionarPromocao').removeClass('hide');
 
 
         let img = $(this).find('input[name=imagem]')[0].files[0];
@@ -384,13 +395,15 @@ function PaginaPromocao() {
 
             }, jsonReplacer));
 
-            promocaoController.criarPromocao(loja,formData);
+            promocaoController.criarPromocao(loja,formData).always(function () {
+                $('div#pbAdicionarPromocao').addClass('hide');
+            });
 
         }else {
             M.toast({html: 'Erro ao tentar guardar. Verifique se o ficheiro que seleccionou é uma imagem.', classes: 'rounded'});
 
         }
-        $(e.target).removeClass('disabled');
+        $(this).find('button[type=submit]').removeClass('disabled');
 
     });
 }
@@ -478,13 +491,13 @@ function PaginaDefinicoes() {
             lojaDasDefinicoes.categoria = $("select[name=categoria]").val();
         });
     $("input[name=payOnline]").change(function () {
-            lojaDasDefinicoes.payOnline = $("input[name=payOnline]").val();
+            lojaDasDefinicoes.payOnline = $("input[name=payOnline]")[0].checked;
         });
     $("input[name=payMoney]").change(function () {
-            lojaDasDefinicoes.payMoney = $("input[name=payMoney]").val();
+            lojaDasDefinicoes.payMoney = $("input[name=payMoney]")[0].checked;
         });
     $("input[name=payTPA]").change(function () {
-            lojaDasDefinicoes.payTPA = $("input[name=payTPA]").val();
+            lojaDasDefinicoes.payTPA = $("input[name=payTPA]")[0].checked;
         });
     $("input[name=taxaDeEntrega]").change(function () {
             lojaDasDefinicoes.taxaDeEntrega = $("input[name=taxaDeEntrega]").val();
@@ -554,30 +567,28 @@ function PaginaDefinicoes() {
 
 // ------------------------- CriarConta.html --------------------------------- //
 function PaginaCriarConta() {
-    
+
 }
 
 
 function PaginaPedidos() {
     $(document).ready(function () {
         pedidosController.obterPedidosDaLoja(loja, `dataDeEmissao=${PHPdateTime('Y-m-d')}`);
-    });
-    $(' a.btn-openSidenav').click(function (e) {
-       // $('ul.sidenav2').sidenav()[0].M_Sidenav.isOpen = true;
-        //console.log('Iniciou> ', $('ul.sidenav2').sidenav('isOpen'));
-
+        $('ul.sidenav2').sidenav();
     });
 
 
     $('div#pedidoContainer button#btnAceitarPedido').click(function () {
-        console.log('asd');
-        $(this).disabled = true;
+        $(this).addClass('disabled');
         let id = $('div#pedidosPag ul.sidenav2 li.orange.lighten-4 span.i').text();
         pedidosController.actualizarPedido(loja,{id: id, isAccept:2})
             .done(function () {
                 pedidosController.obterPedidosDaLoja(loja);
+                M.toast({html: 'Pedido Aceite', classes: 'rounded'});
 
-            });
+            }).always(function () {
+                $(this).removeClass('disabled');
+        });
     });
 
     $('form[name=frmNegarPedido]').submit(function (e) {
@@ -618,10 +629,11 @@ messaging.usePublicVapidKey("BA0lvW08D6OwBg9QL-sTfVqp-ZCiu3jvzVGTkfA3nHhsEvz4DS0
 
 
 messaging.requestPermission().then(function() {
-    console.log('Notification permission granted.');
     getToken();
 }).catch(function(err) {
-    console.log('Unable to get permission to notify.', err);
+    messaging.requestPermission().then(function() {
+        getToken();
+    });
 });
 
 
@@ -629,7 +641,12 @@ function getToken(){
     messaging.getToken().then(function(currentToken) {
         if (currentToken) {
             //Todo Guardar o token na base de dados
-            lojaController.actualizarLoja({ id: loja.id, fcmToken: currentToken });
+            lojaController.actualizarLoja({ id: loja.id, fcmToken: currentToken }).done(function () {
+                lojaController.obterLojaPeloId(loja).done(function (data, tS, xhr) {
+                    sessionStorage['dadosLoja'] = xhr.responseText;
+                    loja = data;
+                });
+            });
             console.log('token: ', currentToken);
         } else {
             console.log('No Instance ID token available. Request permission to generate one.');
@@ -647,7 +664,7 @@ messaging.onTokenRefresh(function() {
 messaging.onMessage(function(payload) {
     let notification = new Notification(payload.notification.title, {body:payload.notification.body,icon:payload.notification.icon});
     notification.onclick = function (){
-        window.open(payload.notification.click_action);
+        window.open(payload.notification.click_action, window.name);
     };
     INTENT();
     console.log('Message received. ', payload);

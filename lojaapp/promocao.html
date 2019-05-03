@@ -67,7 +67,9 @@
 
 
 
-
+                <div id="pbAdicionarPromocao" class="progress hide">
+                    <div class="indeterminate"></div>
+                </div>
 
             </div>
             <div class="modal-footer">
@@ -123,7 +125,13 @@
                     <textarea id="textarea1P" name="descricaoP" class="materialize-textarea"></textarea>
                     <label for="textarea1P" class="active">Descrição</label>
                 </div>
+
+
+                <div id="pbEditarPromocao" class="progress hide">
+                    <div class="indeterminate"></div>
+                </div>
             </div>
+
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Sair</a>
                 <button type="submit" class="waves-effect waves-green btn-flat">Guardar</button>
@@ -148,6 +156,9 @@
                         </div>
                     </div>
                 </div>
+                <div id="pbEditarFotoPromocao" class="progress hide">
+                    <div class="indeterminate"></div>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Sair</a>
@@ -159,7 +170,7 @@
 
     <!-- Modal Structure -->
     <div id="modalEliminarPromocao" class="modal">
-        <form name="frmEliminarPromo">
+        <form name="frmEliminarPromocao">
             <div class="modal-content">
                 <h4>Terminar uma Promoção</h4>
                 <p>Você tem certeza que pretende terminar esta promoção? Esta operação é irreversível</p>
@@ -167,6 +178,9 @@
                     <input type="hidden" class="hide" name="txtEliminarIdentifierPromocao">
                 </label>
                 <p>Nome da promoção: <span id="txtEliminarPromocaoNome"></span></p>
+                <div id="pbEliminarPromocao" class="progress hide">
+                    <div class="indeterminate"></div>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat orange-text">Sair</a>

@@ -58,7 +58,6 @@ function formaDePagamento(forma) {
 }
 function PHPdateTime(DatePattern, dataHora = null) {
     let dateTime;
-    console.log(dataHora);
     if (dataHora !== null) {
         if (typeof dataHora === "string") {
             dateTime = new Date(dataHora);
@@ -68,7 +67,6 @@ function PHPdateTime(DatePattern, dataHora = null) {
     } else {
         dateTime = new Date();
     }
-    console.log(dateTime);
     for (var i = 0; i<=DatePattern.length; i++){
         if(DatePattern.charAt(i)==='d') DatePattern = DatePattern.replace(/d/gi, Number(dateTime.getDate())<10?'0'+(dateTime.getDate()):dateTime.getDate());
         if(DatePattern.charAt(i)==='m') DatePattern = DatePattern.replace(/m/gi, Number(dateTime.getMonth()+1)<10?'0'+(dateTime.getMonth()+1):dateTime.getMonth()+1);
@@ -78,5 +76,13 @@ function PHPdateTime(DatePattern, dataHora = null) {
         if(DatePattern.charAt(i)==='s') DatePattern = DatePattern.replace(/s/gi, Number(dateTime.getSeconds())<10?'0'+(dateTime.getSeconds()):dateTime.getSeconds());
     }
     return DatePattern;
+}
+function tratarIsAccept(isAccept){
+    switch (isAccept){
+        case '0': return {estado: "negado", corClasse: "red"} ;
+        case null: return {estado: "pendente", corClasse: "yellow darken-1"} ;
+        case '1': return {estado: "aceite", corClasse: "orange"} ;
+        default: return isAccept;
+    }
 }
 export {validarTipoDeImagem, jsonReplacer, colocarRodape, retirarRodape, tratarCategoria, estadoPedidoToText, PHPdateTime}

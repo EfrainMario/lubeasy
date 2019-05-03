@@ -13,7 +13,7 @@ class LojaController{
             $('button#btnLogin').attr('disabled', 'disabled');
         }, function(data, textStatus, xhr){
             sessionStorage.setItem('dadosLoja', xhr.responseText);
-            document.location.replace('index.html');
+            document.location.replace('');
         }, function () {
             $('span#resposta').html('Email ou senha errada');
         }, function () {

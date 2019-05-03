@@ -8,8 +8,9 @@ class ProdutoController{
     }
     //requisitar(metodo, router, dados, loading, success, failure, sempre)
     obterProdutosDaLoja(loja){
-        this.servidor.requisitar('GET','/lojas/'+loja.id+'/produtos', null, function () {
+        return this.servidor.requisitar('GET','/lojas/'+loja.id+'/produtos', null, function () {
             $('div#IndexProgressBar').addClass('active');
+            $('div#produtosContainer').addClass('hide');
         }, function(data, textStatus, xhr){
             let produtosUI;
 
@@ -31,11 +32,12 @@ class ProdutoController{
             M.toast({html: 'Erro ao conectar com o servidor!', classes: 'rounded'});
         }, function () {
             $('div#IndexProgressBar').removeClass('active');
+            $('div#produtosContainer').removeClass('hide');
         });
     }
 
     apagarProduto(loja, produto) {
-        this.servidor.requisitar('DELETE','/lojas/'+loja.id+'/produtos/'+produto.id, null, function () {
+        return this.servidor.requisitar('DELETE','/lojas/'+loja.id+'/produtos/'+produto.id, null, function () {
             //Todo ProgressBar
         }, function (data, textStatus, xhr) {
             M.toast({html: 'Produto Apagado!', classes: 'rounded'});
@@ -49,7 +51,7 @@ class ProdutoController{
         });
     }
     criarProduto(loja, produto){
-        this.servidor.requisitar('POST','/lojas/'+loja.id+'/produtos',produto, function () {
+        return this.servidor.requisitar('POST','/lojas/'+loja.id+'/produtos',produto, function () {
 
         }, function (data, textStatus, xhr) {
             M.toast({html: 'Produto Criado!', classes: 'rounded'});
@@ -63,9 +65,10 @@ class ProdutoController{
         }, /*comFoto*/ true);
     }
     actualizarProduto(loja, produto){
-        console.log('produto: ', produto);
+
         let comImagem = false;
         let prod = Object.assign({},produto);
+
         delete produto.id;
 
         return this.servidor.requisitar('PUT','/lojas/'+loja.id+'/produtos/'+prod.id , JSON.stringify(produto), function () {
@@ -213,17 +216,22 @@ class ProdutoController{
         $('form[name=frmEditarProduto]').submit(function (e) {
             e.preventDefault();
             $(e.target).addClass('disabled');
+            $('div#pbEditarProduto').removeClass('hide');
             //Todo Verificacao dos campos
 
             new ProdutoController().actualizarProduto(loja, produto)
                 .done(function (data, statusText, xhr) {
                     $('div#modalEditarProduto.modal').modal('close');
-                });
+                })
+                .always(function () {
+                    $('div#pbEditarProduto').addClass('hide');
+            });
         });
 
         $('form[name=frmEditarImagemProduto]').submit(function (e) {
             e.preventDefault();
             $(this).find('button[type=submit]').addClass('disabled');
+            $('div#pbEditarFotoProduto').removeClass('hide');
             let frmEditarImagemProduto = this;
             let img = $(this).find(' input[name=imagemNovaProduto]')[0].files[0];
 
@@ -234,7 +242,9 @@ class ProdutoController{
                     $('div#modalEditarFotoProduto.modal').modal('close');
                     $('div#modalEditarProduto.modal').modal('close');
                     frmEditarImagemProduto.reset();
+                }).always(function () {
                     $(frmEditarImagemProduto).find('button[type=submit]').removeClass('disabled');
+                    $('div#pbEditarFotoProduto').addClass('hide');
                 });
             }else{
                 M.toast({html: 'Erro ao tentar guardar. Verifique se o ficheiro que seleccionou é uma imagem.', classes: 'rounded'});
@@ -257,9 +267,14 @@ class ProdutoController{
         });
         $('form[name=frmEliminar]').submit(function (e) {
             e.preventDefault();
-            $(e.target).disabled=true;
+            $(this).find('button[type=submit]').addClass('disabled');
+            $('div#pbEliminarProduto').removeClass('hide');
             //Todo Eliminar Produto
-            new ProdutoController().apagarProduto(loja,{ id: $('input[name=txtEliminarIdentifier]').val()});
+            new ProdutoController().apagarProduto(loja,{ id: $('input[name=txtEliminarIdentifier]').val()})
+                .always(function () {
+                    $('form[name=frmEliminar] button[type=submit]').removeClass('disabled');
+                    $('div#pbEliminarProduto').addClass('hide');
+                });
         })
 
         // ---------------------- Eliminar Produto ------------------------------------------- //

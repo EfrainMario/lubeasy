@@ -8,29 +8,31 @@ class PromocaoController{
     }
     //requisitar(metodo, router, dados, loading, success, failure, sempre)
     obterTodasAsDaPromocoesLoja(loja){
-        this.servidor.requisitar('GET','/lojas/'+loja.id+'/promocoes', null, function () {
-            $('div#IndexProgressBar').addClass('active');
-        },function(data, textStatus, xhr){
-            let promocaoUI;
+        return this.servidor.requisitar('GET','/lojas/'+loja.id+'/promocoes', null, function () {
+                $('div#IndexProgressBar').addClass('active');
+                $('div#promocaoContainer').addClass('hide');
+            },function(data, textStatus, xhr){
+                let promocaoUI;
 
-            if(xhr.status === 204){
-                promocaoUI = '<div class="col s12 center-align"><span class="grey-text">Ainda não iniciou nenhuma promoção. Experimente criar uma</span> </div>';
-                M.toast({html: 'Ainda não iniciou nenhuma promoção', classes: 'rounded'});
-            }else {
-                promocaoUI = PromocaoController.promocaoAdapter(JSON.parse(xhr.responseText));
-            }
-            $('div#promocaoContainer').html(promocaoUI);
+                if(xhr.status === 204){
+                    promocaoUI = '<div class="col s12 center-align"><span class="grey-text">Ainda não iniciou nenhuma promoção. Experimente criar uma</span> </div>';
+                    M.toast({html: 'Ainda não iniciou nenhuma promoção', classes: 'rounded'});
+                }else {
+                    promocaoUI = PromocaoController.promocaoAdapter(JSON.parse(xhr.responseText));
+                }
+                $('div#promocaoContainer').html(promocaoUI);
 
 
-            new PromocaoController().init(loja);
-        }, function () {
-            M.toast({html: 'Erro ao conectar com o servidor!', classes: 'rounded'});
-        }, function () {
-            $('div#IndexProgressBar').removeClass('active');
-        });
+                new PromocaoController().init(loja);
+            }, function () {
+                M.toast({html: 'Erro ao conectar com o servidor!', classes: 'rounded'});
+            }, function () {
+                $('div#IndexProgressBar').removeClass('active');
+                $('div#promocaoContainer').removeClass('hide');
+            });
     }
     obterPromocao(loja){
-        this.servidor.requisitar('POST','/lojas/'+loja.id+'/promocoes'+promocao.id,null, function () {
+        return this.servidor.requisitar('POST','/lojas/'+loja.id+'/promocoes'+promocao.id,null, function () {
 
         }, function () {
 
@@ -41,7 +43,7 @@ class PromocaoController{
         });
     }
     criarPromocao(loja, promocao){
-        this.servidor.requisitar('POST','/lojas/'+loja.id+'/promocoes',promocao, function () {
+        return this.servidor.requisitar('POST','/lojas/'+loja.id+'/promocoes',promocao, function () {
 
         }, function () {
             new PromocaoController().obterTodasAsDaPromocoesLoja(loja);
@@ -53,7 +55,7 @@ class PromocaoController{
         }, /*Com imagem*/true);
     }
     actualizarPromocao(loja, promocao){
-        this.servidor.requisitar('PUT','/lojas/'+loja.id+'/promocoes/'+promocao.id,JSON.stringify(promocao, jsonReplacer), function () {
+        return this.servidor.requisitar('PUT','/lojas/'+loja.id+'/promocoes/'+promocao.id,JSON.stringify(promocao, jsonReplacer), function () {
 
         }, function () {
             M.toast({html: 'edição guardada', classes: 'rounded'});
@@ -79,7 +81,7 @@ class PromocaoController{
         }, /*Com imagem*/ true);
     }
     apagarPromocao(loja, promocao){
-        this.servidor.requisitar('DELETE','/lojas/'+loja.id+'/promocoes/'+promocao.id,null, function () {
+        return this.servidor.requisitar('DELETE','/lojas/'+loja.id+'/promocoes/'+promocao.id,null, function () {
 
         }, function () {
             M.toast({html: 'Promoção eliminada', classes: 'rounded'});
@@ -162,6 +164,7 @@ class PromocaoController{
 
         $('form[name=frmEditarPromocao]').submit(function (e) {
             e.preventDefault();
+            $('div#pbEditarPromocao').removeClass('hide');
             new PromocaoController().actualizarPromocao(loja,
                 {
                     id: $('input[name=txtPromocaoIdentifier]').val(),
@@ -171,14 +174,17 @@ class PromocaoController{
                     dataTermino: $('input[name=dataTerminoP]').val()+' '+ $('input[name=horaTerminoP]').val(),
                     //imagem: $('input[name=imagemP]').val(),
                     preco: $('input[name=precoP]').val(),
-                });
+                }).always(function () {
+                    $('div#pbEditarPromocao').addClass('hide');
+            });
         });
         $('form[name=frmEditarImagemPromocao]').submit(function (e) {
             e.preventDefault();
             let img = $(this).find('input[name=imagemNovaPromocao]')[0].files[0];
             let frmEditarImagemProduto = this;
-
             $(frmEditarImagemProduto).find('button[type=submit]').addClass('disabled');
+            $('div#pbEditarFotoPromocao').removeClass('hide');
+
             if(validarTipoDeImagem(img)){
                 let formData = new FormData();
                 formData.append('imagem', img);
@@ -187,11 +193,12 @@ class PromocaoController{
                     $('div#modalEditarPromocao.modal').modal('close');
                     frmEditarImagemProduto.reset();
                     $(frmEditarImagemProduto).find('button[type=submit]').removeClass('disabled');
+                }).always(function () {
+                    $('div#pbEditarFotoPromocao').addClass('hide');
+                    $('form[name=frmEditarImagemProduto] button[type=submit]').removeClass('disabled');
                 });
             }else{
-                M.toast({html: 'Erro ao tentar guardar. Verifique se o ficheiro que seleccionou é uma imagem.', classes: 'rounded'});
-                $('form[name=frmEditarImagemProduto] button[type=submit]').removeClass('disabled');
-
+                M.toast({html: 'Verifique se o ficheiro que seleccionou é uma imagem.', classes: 'rounded'});
             }
         });
         // -------------------- Editar Produto --------------------------------------------- ///
@@ -209,10 +216,15 @@ class PromocaoController{
         });
 
         //Todo verificar os campos
-        $('form[name=frmEliminarPromo]').submit(function (e) {
+        $('form[name=frmEliminarPromocao]').submit(function (e) {
             e.preventDefault();
-            $(this).disabled=true;
-            new PromocaoController().apagarPromocao(loja,{id:$('input[name=txtEliminarIdentifierPromocao]').val()});
+            $(this).find('button[type=submit]').addClass('disabled');
+            $('div#pbEliminarPromocao').removeClass('hide');
+            new PromocaoController().apagarPromocao(loja,{id:$('input[name=txtEliminarIdentifierPromocao]').val()})
+                .always(function () {
+                    $('div#pbEliminarPromocao').addClass('hide');
+                    $('form[name=frmEditarImagemProduto] button[type=submit]').removeClass('disabled');
+                });
         });
     }
 }

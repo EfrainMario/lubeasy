@@ -14,7 +14,7 @@ class Servidor{
                 method: metodo,
                 url:this.host+router,
                 data: dados,
-                contentType: false,//comImagem === true? false: "application/json",
+                contentType: comImagem === true? false: "application/json",
                 processData: false,
                 beforeSend: loading(),
                 statusCode: {

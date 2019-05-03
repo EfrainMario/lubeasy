@@ -30,7 +30,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
         icon: '/firebase-logo.png'
     };
     notificationOptions.click = function() {
-        window.open("http://stackoverflow.com");
+        window.open("http://stackoverflow.com", "lubeasy");
     };
     return self.registration.showNotification(notificationTitle,
         notificationOptions);

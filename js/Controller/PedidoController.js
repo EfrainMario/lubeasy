@@ -94,9 +94,9 @@ class PedidosController{
             let estado = estadoPedidoToText(pedido.isAccept);
             //Todo pegar o cliente
             a += ` <li ${activo}>
-                            <a class="waves-effect" style="height: 70px;" href="#">
+                            <a class="waves-effect sidenav-close" style="height: 70px;" href="#">
                                 <span class="new badge ${estado.corClasse}" data-badge-caption="${estado.estado}"></span>
-                                <div class="title truncate" style="height: 30px;">#<span class="codigoProduto">${pedido.codPedido}</span> ${pedido.idCliente}</div>
+                                <div class="title truncate codigoProduto" style="height: 30px;">${pedido.codPedido}</div>
                                 <span class="blue-grey-text" style="font-size: smaller;">${pedido.dataDeEmissao} às ${pedido.receptLojaTime}</span>
                                 <span class="i hide">${pedido.id}</span>
                             </a>
@@ -155,7 +155,10 @@ class PedidosController{
                 $('div#pedidosPag div.container span#dataDeEmissao').html(pedido.dataDeEmissao);
                 $('div#pedidosPag div.container span#receptLojaTiime').html(pedido.receptLojaTiime);
                 $('div#pedidosPag div.container span#tempoDeEntrega').html(pedido.tempoDeEntrega);
-                $('div#pedidosPag div.container span#observacoes').html(pedido.observacoes);
+
+                $('div#pedidosPag div.container span#nomeCliente').html(pedido.nome);
+                $('div#pedidosPag div.container span#endereco').html(pedido.endereco);
+                $('div#pedidosPag div.container span#referencia').html(pedido.descricao);
 
                 //Todo itens do pedido
                 let items = ' ';
