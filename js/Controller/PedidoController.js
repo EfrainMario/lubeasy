@@ -18,6 +18,8 @@ class PedidosController{
                 this.inicialized = 1;
                 new PedidosController().inicializarPedidos(loja, pedidos);
             }*/
+            $('header span.txtPedidosNovos').addClass('hide').html('');
+
             if(pedidos!=null){
                 $('div#pedidoContainer div.detalhesContainer').removeClass('hide');
             }
@@ -100,18 +102,19 @@ class PedidosController{
                     <label for="icon_prefix2">Pesquisar</label>
                 </div>
             </form>`;
-        let verMais = ` <div id="pbPedidos" class="preloader-wrapper small active hide">
-                            <div class="spinner-layer spinner-green-only">
-                              <div class="circle-clipper left">
-                                <div class="circle"></div>
-                              </div><div class="gap-patch">
-                                <div class="circle"></div>
-                              </div><div class="circle-clipper right">
-                                <div class="circle"></div>
-                              </div>
+        let verMais = ` <div class="col s12 center">
+                            <div id="pbPedidos" class="preloader-wrapper small active hide">
+                                <div class="spinner-layer spinner-green-only">
+                                  <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                  </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                  </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                  </div>
+                                </div>
                             </div>
                         </div>
-        
                         <li class="verMais">
                             <a class="waves-effect" href="#">
                                 <div class="grey-text center" style="height: 30px;">Ver pedidos antigos</div>

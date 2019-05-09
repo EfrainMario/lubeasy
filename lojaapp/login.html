@@ -16,32 +16,37 @@
 
 
     <main>
-        <div class="container center-align" style="position: absolute; top: 15%;">
-            <div class="row login center">
+        <div class="container">
+            <div class="row login">
                 <div class="col s12 m4 offset-m4">
-                    <img src="../img/logo.png" class="responsive-img">
-                    <form name="formLogin">
-                            <div class="input-field">
-                                <label for="email" >Email</label>
-                                <input name="email" id="email" type="email" class="validate"/>
-                                <span class="helper-text" data-error="Email inválido" data-success="Email válido"></span>
-                            </div>
-                            <div class="input-field">
-                                <label for="senha" >Password</label>
-                                <input type="password" name="senha" id="senha" class="validate" >
-                            </div>
+                    <div style="margin-top: 100%;">
+                        <img src="../img/logo.png" class="responsive-img center-block">
+                        <br>
+                        <form name="formLogin">
+                                <div class="input-field">
+                                    <label for="email" >Email</label>
+                                    <input name="email" id="email" type="email" class="validate"/>
+                                    <span class="helper-text" data-error="Email inválido" data-success="Email válido"></span>
+                                </div>
+                                <div class="input-field">
+                                    <label for="senha" >Password</label>
+                                    <input type="password" name="senha" id="senha" class="validate" >
+                                </div>
 
+                                    <span class="red-text" id="resposta"></span>
+                                <div class="input-field">
+                                    <button  type="submit" id="btnLogin" class="btn-large waves-effect waves-dark orange" style="width: 100%;" >Entrar</button>
+                                </div>
+                                <div class="progress hide" id="LoginProgressBar">
+                                    <div class="indeterminate"></div>
+                                </div>
+                                <!--<span>Ainda não tens uma conta? </span><a href="#">Criar conta</a>-->
+                                <a href="#" class="btn-flat btn-large grey-text text-darken-2 waves-effect" style="width: 100%;">Criar uma conta</a>
                                 <br>
-                                <span class="red-text" id="resposta"></span>
-                            <div class="input-field">
-                                <button  type="submit" id="btnLogin" class="btn-large waves-effect waves-dark orange" style="width: 100%;" >Login</button>
-                            </div>
-                            <div class="progress hide" id="LoginProgressBar">
-                                <div class="indeterminate"></div>
-                            </div>
-                            <span>Ainda não tens uma conta? </span><a href="#" class="">Criar conta</a>
-                            <br>
-                        </form>
+                            </form>
+
+                    </div>
+                    <h6 class="grey-text text-lighten-1 center-align">© 2019 Lubeasy</h6>
                     </div>
                 </div>
         </div>

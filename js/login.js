@@ -1,5 +1,5 @@
 import {Servidor} from "./Model/entidades/Servidor.js";
-
+window.name= "lubeasy";
 //Controller
 class LojaController{
     constructor(){

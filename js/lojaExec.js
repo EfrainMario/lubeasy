@@ -18,7 +18,7 @@ function INTENT(){
 
     let params = new URLSearchParams(document.location.search.substring(1));
     let pagina = params.get("action");
-    if(!(pagina===null) || !(pagina === '')){
+    if(!(pagina===null)){
         modalInserirSenhaParaPaginas(pagina,
             function () {
                 $('main').load(pagina + '.html', function () {
@@ -573,7 +573,10 @@ function PaginaCriarConta() {
 
 function PaginaPedidos() {
     $(document).ready(function () {
-        pedidosController.obterPedidosDaLoja(loja, `dataDeEmissao=${PHPdateTime('Y-m-d')}`);
+        pedidosController.obterPedidosDaLoja(loja, `dataDeEmissao=${PHPdateTime('Y-m-d')}`)
+            .done(function () {
+
+            });
         $('ul.sidenav2').sidenav();
     });
 
@@ -692,7 +695,11 @@ messaging.onTokenRefresh(function() {
 
 messaging.onMessage(function(payload) {
     let notification = new Notification(payload.notification.title, {body:payload.notification.body,icon:payload.notification.icon});
+    let $txtPedidosNovos = $('header span.txtPedidosNovos').removeClass('hide');
+    let numeroActual = $txtPedidosNovos.html();
+    $txtPedidosNovos.html(numeroActual++);
     notification.onclick = function (){
+
         window.open(payload.notification.click_action, window.name);
     };
     INTENT();
