@@ -10,18 +10,24 @@ class PedidosController{
     obterPedidosDaLoja(loja, parametros = null){
 
         return this.servidor.requisitar('GET','/lojas/'+loja.id+'/pedidos', parametros, function () {
-            $('div#IndexProgressBar').addClass('active');
+            $('div#pbPedidos').removeClass('hide');
+            $('div#pedidoContainer div.detalhesContainer').addClass('hide');
         }, function(pedidos, textStatus, xhr){
 
             /*if(!this.inicialized){
                 this.inicialized = 1;
                 new PedidosController().inicializarPedidos(loja, pedidos);
             }*/
+            if(pedidos!=null){
+                $('div#pedidoContainer div.detalhesContainer').removeClass('hide');
+            }
             new PedidosController().inicializarPedidos(loja, pedidos);
+
+
         }, function () {
             M.toast({html: 'Erro ao obter os pedidos!', classes: 'rounded'});
         }, function () {
-            $('div#IndexProgressBar').removeClass('active');
+            $('div#pbPedidos').addClass('hide');
         });
     }
     actualizarPedido(loja, pedido){
@@ -64,6 +70,17 @@ class PedidosController{
 
         });
     }
+    clientePedidoPushMessage(loja, payload){
+        return this.servidor.requisitar('POST','/pushmessage/clientes/'+loja.id, JSON.stringify(payload), function () {
+
+        }, function () {
+
+        }, function () {
+
+        }, function () {
+
+        });
+    }
 
     inicializarPedidos(loja, pedidos=[]){
         let jaExecutado = 0;
@@ -83,7 +100,19 @@ class PedidosController{
                     <label for="icon_prefix2">Pesquisar</label>
                 </div>
             </form>`;
-        let verMais = ` <li class="verMais">
+        let verMais = ` <div id="pbPedidos" class="preloader-wrapper small active hide">
+                            <div class="spinner-layer spinner-green-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                        </div>
+        
+                        <li class="verMais">
                             <a class="waves-effect" href="#">
                                 <div class="grey-text center" style="height: 30px;">Ver pedidos antigos</div>
                             </a>

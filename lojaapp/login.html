@@ -12,47 +12,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>CadastroLoja Base</title>
 </head>
-<body >
+<body style="height: 100%;">
 
 
     <main>
+        <div class="container center-align" style="position: absolute; top: 15%;">
+            <div class="row login center">
+                <div class="col s12 m4 offset-m4">
+                    <img src="../img/logo.png" class="responsive-img">
+                    <form name="formLogin">
+                            <div class="input-field">
+                                <label for="email" >Email</label>
+                                <input name="email" id="email" type="email" class="validate"/>
+                                <span class="helper-text" data-error="Email inválido" data-success="Email válido"></span>
+                            </div>
+                            <div class="input-field">
+                                <label for="senha" >Password</label>
+                                <input type="password" name="senha" id="senha" class="validate" >
+                            </div>
 
-            <div class="row login">
-                    <div class="col s12 m6 offset-m3  ">
-                        <div class="card ">
-                            <div class="card-action teal orange white-text">
-                            <h4 class="">Entrar</h4>
-                        </div>
-        <form name="formLogin">
-        <div class="card-content">
-
-                <div class="input-field ">
-                    <label for="email" >Email</label>
-                    <input name="email" id="email" type="email" class="validate"/>
-                    <span class="helper-text" data-error="Email inválido" data-success="Email válido"></span>
-                </div>
-    
-    
-                    <div class="input-field ">
-                        <label for="senha" >Password</label>
-                        <input type="password" name="senha" id="senha" class="validate" >
+                                <br>
+                                <span class="red-text" id="resposta"></span>
+                            <div class="input-field">
+                                <button  type="submit" id="btnLogin" class="btn-large waves-effect waves-dark orange" style="width: 100%;" >Login</button>
+                            </div>
+                            <div class="progress hide" id="LoginProgressBar">
+                                <div class="indeterminate"></div>
+                            </div>
+                            <span>Ainda não tens uma conta? </span><a href="#" class="">Criar conta</a>
+                            <br>
+                        </form>
                     </div>
-                    
-                    <br><br>
-                    <span class="red-text" id="resposta"></span>
-                <div class="input-field">
-                    <button  type="submit" id="btnLogin" class="btn-large waves-effect waves-dark orange" style="width: 100%;" >Login</button>
                 </div>
-                <div class="progress hide" id="LoginProgressBar">
-                    <div class="indeterminate"></div>
-                </div>
-                <span>Ainda não tens uma conta?</span><a href="#" class="">Criar conta</a>
-                <br>
-            </div>
-        </form>
-            </div>
         </div>
-            </div>
     </main>
 
     <script src="./../js/Libs/js/jquery-3.3.1.min.js" ></script>

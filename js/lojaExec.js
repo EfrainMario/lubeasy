@@ -88,7 +88,7 @@ function ler(){
     else if($('div#pedidosPag').length !== 0){
         PaginaPedidos();
         console.log('pedidos');
-        colocarRodape();
+        retirarRodape();
     }
     // ------------------------ promocao.html ----------------------------------- ///
     else if($('div#promocaoPag').length !== 0){
@@ -162,7 +162,7 @@ function ler(){
     // ------------------------ definicoes.html ----------------------------------- ///
     else if($('div#definicoesPag').length !== 0){
         PaginaDefinicoes();
-        colocarRodape();
+        retirarRodape();
         console.log('definicoes');
     }
     // ------------------------ produtos.html ----------------------------------- ///
@@ -581,8 +581,21 @@ function PaginaPedidos() {
     $('div#pedidoContainer button#btnAceitarPedido').click(function () {
         $(this).addClass('disabled');
         let id = $('div#pedidosPag ul.sidenav2 li.orange.lighten-4 span.i').text();
-        pedidosController.actualizarPedido(loja,{id: id, isAccept:2})
+        pedidosController.actualizarPedido(loja,{id: id, isAccept:1})
             .done(function () {
+                pedidosController.clientePedidoPushMessage(loja,
+                    {
+                        notification: {
+                            title: loja.nome,
+                            body: 'O seu pedido foi aceite'
+                        },
+                        data: {
+                            class: 'pedido',
+                            id: id
+                        }
+                    }).done(function () {
+                        M.toast({html: 'Remetente notificado', classes: 'rounded'});
+                });
                 pedidosController.obterPedidosDaLoja(loja);
                 M.toast({html: 'Pedido Aceite', classes: 'rounded'});
 
@@ -597,6 +610,22 @@ function PaginaPedidos() {
         let texto = $(this).find('textarea[name=txtNegarPedido]').val();
         pedidosController.actualizarPedido(loja,{id: id, isNotAcceptDetail: texto, isAccept:0})
             .done(function () {
+                M.toast({html: 'Pedido Aceite', classes: 'rounded'});
+
+                pedidosController.clientePedidoPushMessage(loja,
+                    {
+                        notification: {
+                            title: loja.nome,
+                            body: 'O seu pedido foi negado'
+                        },
+                        data: {
+                            class: 'pedido',
+                            id: id
+                        }
+                    }).done(function () {
+                    M.toast({html: 'Remetente notificado', classes: 'rounded'});
+
+                });
                 pedidosController.obterPedidosDaLoja(loja);
             });
     });

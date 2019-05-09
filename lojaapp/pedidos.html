@@ -4,8 +4,11 @@
     }
     main{
         min-height: 500px;
-        background-color: white;
+
         margin-top: -20px;
+    }
+    body{
+        background-color: white;
     }
     ul.sidenav2{
         z-index: auto;
@@ -29,18 +32,20 @@
     <div id="pedidoContainer" class="container" style=" width:100%; margin-top: -15px;">
 
         <div class="row">
-                <div class="col s12">
-                    <a href="#" data-target="sideNavPedidos" class="btn-openSidenav sidenav-trigger show-on-medium-and-down hide-on-large-only"><i class="material-icons">arrow_back</i></a>
-                    <div id="decisaoNovoPedido" class="col s12 card-panel hide">
-                        <p>Aceitar pedido?</p>
-                        <div>
 
-                            <button id="btnAceitarPedido" class="btn-flat green-text waves-effect waves-green">Aceitar</button>
-                            <button data-target="modalPedidos" class="modal-trigger btn-flat red-text waves-effect waves-red">Negar</button>
-                        </div>
+            <div class="col s12">
+                <a href="#" data-target="sideNavPedidos" class="btn-openSidenav sidenav-trigger show-on-medium-and-down hide-on-large-only"><i class="material-icons">arrow_back</i></a>
+                <div id="decisaoNovoPedido" class="col s12 card-panel hide">
+                    <p>Aceitar pedido?</p>
+                    <div>
+
+                        <button id="btnAceitarPedido" class="btn-flat green-text waves-effect waves-green">Aceitar</button>
+                        <button data-target="modalPedidos" class="modal-trigger btn-flat red-text waves-effect waves-red">Negar</button>
                     </div>
-                    <h5>Detalhes</h5>
                 </div>
+                <h5>Detalhes</h5>
+            </div>
+            <div class="detalhesContainer">
                     <div class="col s12 m8">
                         <p><b class="medium">Cliente: </b><span id="nomeCliente">...</span></p>
                         <p>Endereço: <span id="endereco">...</span></p>
@@ -84,8 +89,8 @@
                     <p>Tipo de Entrega: <span id="isPay">...</span></p>
                 </div>
                 <div class="col s5 right-align">
-                    <p>subTotal: <span class="orange-text" id="subTotal">0</span> Akz</p>
-                    <p>taxa de entrega: <span class="orange-text" id="taxaDeEntrega">0</span> Akz</p>
+                    <p>subTotal: <span class="" id="subTotal">0</span> Akz</p>
+                    <p>taxa de entrega: <span class="" id="taxaDeEntrega">0</span> Akz</p>
                     <b>TOTAL: <span class="orange-text" id="total">0</span> Akz</b>
                     <br>
                     <br>
@@ -93,7 +98,7 @@
 
         </div>
 
-
+        </div>
 
 
     </div>
