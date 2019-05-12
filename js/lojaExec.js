@@ -593,7 +593,7 @@ function PaginaPedidos() {
                         "title": loja.nome,
                         "body": 'O seu pedido foi aceite',
                         "icon": "firebase-logo.png",
-                        //"click_action": ".activity.PedidoDetailActivity"
+                        "click_action": "ao.startup.lubssy.activity.PedidoDetailActivity"
                     },
                     "data": {
                         "intent": 'pedido',
@@ -624,8 +624,7 @@ function PaginaPedidos() {
                             "title": loja.nome,
                             "body": 'O seu pedido foi negado',
                             "icon": "firebase-logo.png",
-                            //"click_action": ".activity.PedidoDetailActivity"
-
+                            "click_action": "ao.startup.lubssy.activity.PedidoDetailActivity"
                         },
                         "data": {
                             "intent": 'pedido',
