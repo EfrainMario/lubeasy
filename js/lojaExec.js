@@ -593,6 +593,7 @@ function PaginaPedidos() {
                         "title": loja.nome,
                         "body": 'O seu pedido foi aceite',
                         "icon": "firebase-logo.png",
+                        "click_action": ".activity.PedidoDetailActivity"
                     },
                     "data": {
                         "intent": 'pedido',
@@ -623,6 +624,8 @@ function PaginaPedidos() {
                             "title": loja.nome,
                             "body": 'O seu pedido foi aceite',
                             "icon": "firebase-logo.png",
+                            "click_action": ".activity.PedidoDetailActivity"
+
                         },
                         "data": {
                             "intent": 'pedido',
