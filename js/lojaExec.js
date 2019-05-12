@@ -622,7 +622,7 @@ function PaginaPedidos() {
                     {
                         "notification": {
                             "title": loja.nome,
-                            "body": 'O seu pedido foi aceite',
+                            "body": 'O seu pedido foi negado',
                             "icon": "firebase-logo.png",
                             "click_action": ".activity.PedidoDetailActivity"
 
