@@ -587,16 +587,18 @@ function PaginaPedidos() {
         pedidosController.actualizarPedido(loja,{id: id, isAccept:1})
             .done(function () {
                 pedidosController.clientePedidoPushMessage(loja,
-                    {
-                        notification: {
-                            title: loja.nome,
-                            body: 'O seu pedido foi aceite'
-                        },
-                        data: {
-                            class: 'pedido',
-                            id: id
-                        }
-                    }).done(function () {
+
+                {
+                    "notification": {
+                        "title": loja.nome,
+                        "body": 'O seu pedido foi aceite',
+                        "icon": "firebase-logo.png",
+                    },
+                    "data": {
+                        "intent": 'pedido',
+                        'id': id
+                    }
+                }).done(function () {
                         M.toast({html: 'Remetente notificado', classes: 'rounded'});
                 });
                 pedidosController.obterPedidosDaLoja(loja);
@@ -617,15 +619,18 @@ function PaginaPedidos() {
 
                 pedidosController.clientePedidoPushMessage(loja,
                     {
-                        notification: {
-                            title: loja.nome,
-                            body: 'O seu pedido foi negado'
+                        "notification": {
+                            "title": loja.nome,
+                            "body": 'O seu pedido foi aceite',
+                            "icon": "firebase-logo.png",
                         },
-                        data: {
-                            class: 'pedido',
-                            id: id
+                        "data": {
+                            "intent": 'pedido',
+                            'id': id
                         }
-                    }).done(function () {
+                    }
+
+                    ).done(function () {
                     M.toast({html: 'Remetente notificado', classes: 'rounded'});
 
                 });
